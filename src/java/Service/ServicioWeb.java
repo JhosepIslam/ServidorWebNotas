@@ -48,8 +48,22 @@ public class ServicioWeb {
         
         
         
+    } 
+        
+       @WebMethod(operationName="GetNiveles")
+        public String GetNiveles(){
+            ResultSet res = Conexiones.Conexion.Consulta("SP_GET_NIVELES");
+            try {
+                String JSONNiveles = Conversiones.Convertor.convertToJSON(res);   
+                return JSONNiveles;
+                
+           } catch (Exception e) {
+           }
+            return null;
+            
+        }       
     }
 
     
   
-}
+

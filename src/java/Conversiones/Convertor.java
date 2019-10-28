@@ -8,6 +8,7 @@ package Conversiones;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 /**
  * Utility for converting ResultSets into some Output formats
  * @author marlonlom
@@ -22,16 +23,30 @@ import java.sql.ResultSet;
     public static String convertToJSON(ResultSet resultSet)
             throws Exception {
         JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
         while (resultSet.next()) {
-            int total_rows = resultSet.getMetaData().getColumnCount();
-            for (int i = 0; i < total_rows; i++) {
-                JSONObject obj = new JSONObject();
-                obj.put(resultSet.getMetaData().getColumnLabel(i + 1)
-                        .toLowerCase(), resultSet.getObject(i + 1));
-                jsonArray.put(obj);
+            int total_filas = resultSet.getMetaData().getColumnCount();
+            
+            ArrayList filas = new ArrayList();
+            for (int i = 0; i < total_filas; i++) {
+                filas.add(resultSet.getObject(i+1));
             }
-        }
-        return jsonArray.toString();
+            ArrayList Column = new ArrayList();
+            for (int i = 0; i < total_filas; i++) {
+                Column.add(resultSet.getMetaData().getColumnLabel(i+1));
+            }
+           
+                JSONObject obj = new JSONObject();
+                
+            for (int i = 0; i < total_filas; i++) {
+                obj.put(Column.get(i).toString()
+                        ,filas.get(i));
+            }
+                jsonArray.put(obj);               
+                jsonObject.put("Table",jsonArray);
+            }
+        
+        return jsonObject.toString();
     }
     /**
      * Convert a result set into a XML List
