@@ -62,6 +62,19 @@ public class ServicioWeb {
             return null;
             
         }       
+        
+         @WebMethod(operationName="GetUsuarioIfExits")
+        public boolean GetUsuarioIfExits(String Usuario){
+            ResultSet res = Conexiones.Conexion.Consulta("SP_GET_USER '"+Usuario+"'");
+            try {
+                if (res.next()) {
+                    return true;
+                }
+           } catch (SQLException e) {
+           }
+            return false;
+            
+        } 
     }
 
     
