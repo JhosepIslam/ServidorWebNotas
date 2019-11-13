@@ -5,12 +5,18 @@
  */
 package Service;
 
+import Conversiones.Convertor;
+import Grados.CGrados;
+import Grados.Grados;
+import Secciones.CSecciones;
+import Secciones.Secciones;
+import Usuario.Login;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.jws.WebService;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 /**
  *
  * @author LENOVO
@@ -28,26 +34,10 @@ public class ServicioWeb {
   
     @WebMethod(operationName = "login")
     public int Login(String Usuario , String Pass) {
-        ResultSet res =Conexiones.Conexion.Consulta("exec sp_login "+"'"+Usuario+"'");    
-
-        try {
-            if (res.next()) {
-                String usuario = res.getString("NOMBRE_USUARIO");
-                String pass = res.getString("CLAVE");
-                int nivel = res.getInt("NIVEL");
-                
-                if (Usuario.equals(usuario) && Pass.equals(pass) ) {                    
-                    return nivel;
-                }else  return -0;                
-            }else  return -0;
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(ServicioWeb.class.getName()).log(Level.SEVERE, null, ex);
-            return  0;
-        }
         
+        Login login = new Login(Usuario,Pass);
         
-        
+        return login.getNivel();
     } 
         
        @WebMethod(operationName="GetNiveles")
@@ -75,7 +65,83 @@ public class ServicioWeb {
             return false;
             
         } 
-    }
+        
+        @WebMethod(operationName="GetCarnetIfExists")
+        public boolean GetCarnetIfExists(String Carnet){
+            ResultSet res = Conexiones.Conexion.Consulta("SP_GET_ALUMNO '"+Carnet+"'");
+             try {
+                if (res.next()) {
+                    return true;
+                }
+           } catch (SQLException e) {
+           }
+            return false;
+            
+        }
+        
+        @WebMethod(operationName="GetGrados")
+        public Grados GetGrados(){ 
+            CGrados cGrados = new CGrados();
+            Grados grados = cGrados.ListGrados();
+            return grados;
+            
+        }
+        
+        @WebMethod(operationName="GetSecciones")
+        public Secciones GetSecciones(int id_grado){
+            CSecciones cSecciones = new CSecciones();
+            Secciones secciones = cSecciones.getSecciones(id_grado);
+            return secciones;            
+        }
+        
+        @WebMethod(operationName="GetListGrados_Info")
+        public Grados GetListGrados_Info(){
+             CGrados cGrados = new CGrados();
+            Grados grados = cGrados.GetListGrados_Info();
+            return grados;
+            
+        }
+        
+        @WebMethod(operationName = "DeleteGrado")
+        public Grados DelGrados(int id_grado){
+            CGrados cGrados = new CGrados();
+            Grados grados = cGrados.DeleteGrados(id_grado);
+            return grados;
+            
+        }
+        
+        @WebMethod(operationName = "CreateGrado")
+        public Grados CreateGrado(String Grado){
+            CGrados cGrados = new CGrados();
+            Grados grados = cGrados.CreateGrado(Grado.toUpperCase());
+            return grados;
+        }
+        
+        @WebMethod(operationName = "CreateSeccion")
+        public Secciones CreateSeccion(int Id_Grado,String Seccion){
+            CSecciones cSecciones = new CSecciones();
+            Secciones secciones = cSecciones.CreateSeccion(Id_Grado, Seccion.toUpperCase());
+            return secciones;
+                    
+        }
+        
+        @WebMethod(operationName = "UpdateNombreGrado")
+        public Grados UpdateNombreGrado(int ID, String Grado){
+            CGrados cGrados = new CGrados();
+            Grados grados = cGrados.UpdateGrado(ID, Grado.toUpperCase());
+            return grados;
+        }
+        
+        @WebMethod(operationName = "DeleteSeccion")
+        public Secciones DeleteSeccion(@WebParam(name = "ID") int ID){
+            CSecciones cSecciones = new CSecciones();
+            Secciones secciones = cSecciones.DeleteSeccion(ID);
+            return secciones;
+                    
+        }
+        
+        
+ }
 
     
   
