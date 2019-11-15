@@ -5,12 +5,17 @@
  */
 package Service;
 
-import Conversiones.Convertor;
+import Alumnos.Alumno;
+import Alumnos.CAlumnos;
 import Grados.CGrados;
 import Grados.Grados;
+import Materias.CMaterias;
+import Materias.Materias;
 import Secciones.CSecciones;
 import Secciones.Secciones;
+import Usuario.CUsuario;
 import Usuario.Login;
+import Usuario.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -140,7 +145,50 @@ public class ServicioWeb {
                     
         }
         
+        @WebMethod(operationName = "CreateUser")
+        public Usuario CreateUser(@WebParam(name = "Usuario")String Nombre_Usuario,@WebParam(name = "Pass")String Password,
+                @WebParam(name = "Nombre")String Nombre,@WebParam(name = "Apellido")String Apellido,@WebParam(name = "Correo")String Correo,
+                @WebParam(name = "Nivel")int Nivel
+        ){
+            CUsuario cUsuario = new CUsuario();
+            Usuario usuario = cUsuario.CrearUsuario(Nombre_Usuario, Password, Nombre, Apellido, Correo, Nivel);
+            return usuario;            
+        }
         
+         @WebMethod(operationName = "CreateAlumno")
+        public Alumno CreateAlumno(@WebParam(name = "nie")String nie,@WebParam(name = "Nombre")String Nombre,
+                @WebParam(name = "Apellido")String Apellido,@WebParam(name = "Fecha_Matricula")String Fecha_Matricula,
+                @WebParam(name = "ID_seccion")int ID_seccion,@WebParam(name = "Password")String Password
+        ){
+             CAlumnos cAlumnos = new CAlumnos();
+             Alumno alumno = cAlumnos.CreateAlumno(nie, Nombre, Apellido, Fecha_Matricula, ID_seccion,Password);
+             return alumno;        
+        }
+
+        
+        @WebMethod(operationName = "CreateMateria")
+        public Materias CreateMateria(@WebParam(name="Codigo")String Codigo ,@WebParam(name="Nombre")String Nombre){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.CrearMateria(Codigo, Nombre);
+            return materias;
+        }
+        
+        @WebMethod(operationName = "DeleteMateria")
+        public Materias DeleteMateria(@WebParam(name ="ID_Materia")int ID_Materia){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.DeleteMaterias(ID_Materia);
+            return materias;                    
+        }
+        
+        @WebMethod(operationName = "ListMaterias")
+        public Materias ListMaterias(){
+            CMaterias cMateris = new CMaterias();
+            Materias materias= cMateris.ListMaterias();
+            return materias;
+        }
+
+        
+       
  }
 
     
