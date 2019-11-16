@@ -186,8 +186,42 @@ public class ServicioWeb {
             Materias materias= cMateris.ListMaterias();
             return materias;
         }
-
         
+        @WebMethod(operationName = "ValidarCodigoMateria")
+        public Materias ValidarCodigoMateria(@WebParam(name="CODIGO")String CODIGO){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.ValidarCodigoMateria(CODIGO);
+            return materias;
+                    
+        }
+        @WebMethod(operationName = "ListarMateriasGrados")
+        public Materias ListarMateriasGrados(@WebParam(name="ID_GRADO")int ID_Grado){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.ListarMateriasGrado(ID_Grado);
+            return materias;
+        }
+
+        @WebMethod(operationName = "ListMateriasNotInGrados")
+        public Materias ListMateriasNotInGrados(@WebParam(name="ID_GRADO")int ID_GRADO){
+            CMaterias cMateris = new CMaterias();
+            Materias materias= cMateris.ListMateriasNotInGradosMaterias(ID_GRADO);
+            return materias;
+        }
+        
+        
+         @WebMethod(operationName = "CreateMateriaGrado")
+        public Materias CreateMateriaGrado(@WebParam(name="ID_MATERIA")int ID_MATERIA ,@WebParam(name="ID_GRADO")int ID_GRADO){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.CreateGradoMateria(ID_MATERIA, ID_GRADO);
+            return materias;
+        }
+        
+          @WebMethod(operationName = "DeleteMateriaGrado")
+        public Materias DeleteMateriaGrado(@WebParam(name="ID_MATERIA")int ID_MATERIA ,@WebParam(name="ID_GRADO")int ID_GRADO){
+            CMaterias cMaterias = new CMaterias();
+            Materias materias = cMaterias.DeleteGradoMateria(ID_MATERIA, ID_GRADO);
+            return materias;
+        }
        
  }
 
