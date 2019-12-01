@@ -11,11 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-/**
- *
- * @author LENOVO
- */
 public class CGrados {
     
     private final ArrayList ID = new ArrayList();
@@ -118,6 +113,30 @@ public class CGrados {
     }
   
     
+     public Grados GetGradosWithSecciones(){
+        Grados grados = new Grados();
+        
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_GET_LIST_GRADOS_WITH_SECCIONES()}");
+            ResultSet res = sql.executeQuery();
+            while (res.next()) {                
+                
+                ID.add(res.getString("ID_GRADO"));
+                GRADO.add(res.getString("GRADO"));
+                ESTADO.add(res.getString("ESTADO"));               
+                
+            }
+            grados.setESTADO(ESTADO);
+            grados.setGRADO(GRADO);
+            grados.setID(ID);
+         
+         
+        } catch (SQLException e) {
+            grados.setCONSULTA_RESULT(false);
+        }
+        
+        return grados;
+    }
     
     
     

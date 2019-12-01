@@ -7,10 +7,6 @@ package Grados;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author LENOVO
- */
 public class Grados {
     private ArrayList ID  = new ArrayList();
     private ArrayList GRADO= new ArrayList();

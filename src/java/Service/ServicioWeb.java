@@ -7,6 +7,8 @@ package Service;
 
 import Alumnos.Alumno;
 import Alumnos.CAlumnos;
+import Docentes.CDocentes;
+import Docentes.Docente;
 import Grados.CGrados;
 import Grados.Grados;
 import Materias.CMaterias;
@@ -22,20 +24,10 @@ import java.sql.SQLException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-/**
- *
- * @author LENOVO
- */
+
 @WebService(serviceName = "ServicioWeb")
 public class ServicioWeb {
 
-    /**
-     * This is a sample web service operation
-     * @param Usuario
-     * @param Pass
-     * @return 
-     */
-    
   
     @WebMethod(operationName = "login")
     public int Login(String Usuario , String Pass) {
@@ -222,7 +214,52 @@ public class ServicioWeb {
             Materias materias = cMaterias.DeleteGradoMateria(ID_MATERIA, ID_GRADO);
             return materias;
         }
-       
+        
+        //docentes
+          @WebMethod(operationName = "GetListDocentes")
+        public Docente GetListDocentes(){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.GetDocentes();           
+            return docente;
+        }
+        
+          @WebMethod(operationName = "DeleteDocente")
+        public Docente DeleteDocente(@WebParam(name = "IdDocente")int IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.deleteDocente(IdDocente);           
+            return docente;
+        }       
+         @WebMethod(operationName = "GetListGradosWithSecciones")
+        public Grados GetListGradosWithSecciones(){
+              CGrados cGrados = new CGrados();
+              Grados grados = cGrados.GetGradosWithSecciones();              
+            return grados;
+        }
+         @WebMethod(operationName = "GetMateriasWithoutDocenteBySeccion")
+        public Materias GetMateriasWithoutDocenteBySeccion(@WebParam(name = "IdSeccion")int IdSeccion){
+              CMaterias cMaterias = new CMaterias();
+              Materias materias = cMaterias.GetMateriasWithoutDocenteBySeccion(IdSeccion);
+            return materias;
+        }
+        
+         @WebMethod(operationName = "InsertarMateriaDocente")
+        public Materias InsertarMateriaDocente(@WebParam(name = "IdDocente")int IdDocente,@WebParam(name = "IdMateria")int IdMateria,@WebParam(name = "IdSeccion")int IdSeccion){
+              CMaterias cMaterias = new CMaterias();
+              Materias materias = cMaterias.InsertarMateriaDocente(IdDocente, IdMateria, IdSeccion);
+            return materias;
+        }
+          @WebMethod(operationName = "GetMateriaDocente")
+        public Docente GetMateriaDocente(@WebParam(name = "IdDocente")int IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMateriasDocente(IdDocente);           
+            return docente;
+        }
+        @WebMethod(operationName = "DeleteMateriaDocente")
+        public Materias DeleteMateriaDocente(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente){
+              CMaterias cMaterias = new CMaterias();
+              Materias materias = cMaterias.DeleteMateria_Docente(IdMateriaDocente);
+            return materias;
+        }
  }
 
     

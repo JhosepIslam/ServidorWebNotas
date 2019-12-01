@@ -7,10 +7,7 @@ package Secciones;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author LENOVO
- */
+
 public class Secciones {
     private ArrayList ID_SECCION = new ArrayList();
     private ArrayList ID_GRADO = new ArrayList();

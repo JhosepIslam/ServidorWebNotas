@@ -9,10 +9,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author LENOVO
- */
 public class CAlumnos {
     Connection con = Conexiones.Conexion.getConection();
     

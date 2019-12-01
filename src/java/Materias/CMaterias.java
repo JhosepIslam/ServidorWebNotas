@@ -12,11 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-/**
- *
- * @author LENOVO
- */
 public class CMaterias {
     Connection con = Conexion.getConection();
     private final ArrayList CODIGO_MATERIA = new ArrayList();
@@ -186,4 +181,60 @@ public class CMaterias {
         return materias;
     }
     
+      
+      public Materias GetMateriasWithoutDocenteBySeccion(int idSeccion){
+          Materias materias = new Materias();
+        try {          
+            
+            CallableStatement sql = con.prepareCall("{call SP_GET_LIST_MATERIAS_WITHOUT_DOCENTE(?)}");            
+            sql.setInt(1, idSeccion);  
+            ResultSet result = sql.executeQuery();
+                        
+            while(result.next()){
+                ID_MATERIA.add(result.getString("ID_MATERIA"));
+                CODIGO_MATERIA.add(result.getString("CODIGO_MATERIA"));
+                NOMBRE_MATERIA.add(result.getString("NOMBRE_MATERIA"));                
+            }
+            materias.setCODIGO_MATERIA(CODIGO_MATERIA);
+            materias.setID_MATERIA(ID_MATERIA);
+            materias.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+           
+        } catch (SQLException ex) {
+            materias.setRESULT(false);
+        }
+        return materias;
+      }
+      
+      public Materias InsertarMateriaDocente(int IdDocente,int IdMateria,int idSeccion){
+          Materias materias = new Materias();
+        try {          
+            
+            CallableStatement sql = con.prepareCall("{call SP_INSERT_MATERIA_DOCENTE(?,?,?)}");            
+            sql.setInt(1, IdDocente);  
+            sql.setInt(2, idSeccion);
+            sql.setInt(3, IdMateria); 
+                          
+            sql.execute();
+            materias.setRESULT(true);
+           
+        } catch (SQLException ex) {
+            materias.setRESULT(false);
+        }
+        return materias;
+      }
+      
+      public Materias DeleteMateria_Docente(int idMateriaDocente){
+          Materias materias = new Materias();
+          try {
+              CallableStatement sql = con.prepareCall("{call SP_DELETE_MATERIA_DOCENTE(?)}");
+              sql.setInt(1, idMateriaDocente);
+              sql.execute();
+              materias.setRESULT(true);
+              
+          } catch (SQLException e) {
+              materias.setRESULT(false);
+          }
+          
+          return materias;
+      }
 }

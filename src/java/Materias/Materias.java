@@ -7,10 +7,6 @@ package Materias;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author LENOVO
- */
 public class Materias {
     
     private ArrayList CODIGO_MATERIA,NOMBRE_MATERIA, ID_MATERIA, ESTADO, FECHA;

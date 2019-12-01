@@ -5,12 +5,7 @@
  */
 package Usuario;
 
-/**
- *
- * @author LENOVO
- */
-public class Usuario {
-    
+public class Usuario {    
 
     private String NOMBRE_USUARIO;
     private String PASSWORD,NOMBRE,APELLIDO,CORREO;

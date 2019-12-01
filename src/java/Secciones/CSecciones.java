@@ -11,10 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author LENOVO
- */
+
 public class CSecciones {
     private final ArrayList ID_SECCION = new ArrayList();
     private final ArrayList ID_GRADO = new ArrayList();
@@ -22,6 +19,7 @@ public class CSecciones {
     private final ArrayList ESTADO = new ArrayList();
     
     private final Connection con = Conexiones.Conexion.getConection();
+    
     public Secciones getSecciones(int Id_Grado) {
         Secciones secciones = new Secciones();
         
@@ -79,10 +77,28 @@ public class CSecciones {
     }
     
     
-    
-    
-    
-    
-    
-    
+    //se llama desde la interface de gestion de docentes
+    public Secciones getSeccionesDocente(int id_grado){
+        Secciones secciones = new Secciones();
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_GET_SECCIONES_DOCENTE(?)}");
+            sql.setInt(1, id_grado);
+            ResultSet res = sql.executeQuery();
+            
+            while(res.next()){
+                ID_SECCION.add(res.getInt("ID_SECCION"));
+                ID_GRADO.add(res.getInt("ID_GRADO"));
+                SECCION.add(res.getString("SECCION"));
+                ESTADO.add(res.getInt("ESTADO"));
+            }
+            secciones.setID_SECCION(ID_SECCION);
+            secciones.setID_GRADO(ID_GRADO);
+            secciones.setSECCION(SECCION);
+            secciones.setESTADO(ESTADO);
+            
+        } catch (SQLException e) {
+        }
+        
+        return secciones;
+    }       
 }

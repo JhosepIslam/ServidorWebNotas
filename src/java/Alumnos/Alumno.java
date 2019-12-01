@@ -5,10 +5,6 @@
  */
 package Alumnos;
 
-/**
- *
- * @author LENOVO
- */
 public class Alumno {
     
     private String NIE,NOMBRE,APELLIDO,FECHA_MATRICULA;
