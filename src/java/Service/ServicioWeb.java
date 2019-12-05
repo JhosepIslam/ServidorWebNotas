@@ -7,6 +7,7 @@ package Service;
 
 import Alumnos.Alumno;
 import Alumnos.CAlumnos;
+import Alumnos.CAlumnosP;
 import Docentes.CDocentes;
 import Docentes.Docente;
 import Grados.CGrados;
@@ -18,8 +19,12 @@ import Secciones.Secciones;
 import Usuario.CUsuario;
 import Usuario.Login;
 import Usuario.Usuario;
+import Alumnos.Alumnos;
+import Evaluaciones.CEvaluaciones;
+import Evaluaciones.Evaluaciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -260,6 +265,107 @@ public class ServicioWeb {
               Materias materias = cMaterias.DeleteMateria_Docente(IdMateriaDocente);
             return materias;
         }
+        
+        
+         @WebMethod(operationName = "getGradosByDocente")
+        public Grados getGradosByDocente(@WebParam(name = "IdDocente")int IdDocente){
+              CGrados cGrados = new CGrados();
+              Grados grados = cGrados.GetGradosByDocente(IdDocente);              
+            return grados;
+        }
+        @WebMethod(operationName = "getSeccionesByDocente")
+        public Secciones getSeccionesByDocente(@WebParam(name = "IdDocente")int IdDocente,@WebParam(name = "IdGrado")int IdGrado){
+              CSecciones cSecciones = new CSecciones();
+              Secciones secciones = cSecciones.getSeccionesByDocente(IdGrado,IdDocente);              
+            return secciones;
+        }
+        
+        
+        @WebMethod(operationName = "getIdDocente")
+        public Docente getIdDocente(@WebParam(name = "Usuario")String  Usuario){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getIdDocente(Usuario);              
+            return docente;
+        }
+        
+        @WebMethod(operationName = "ListAlumnosfromSeccion")
+        public Alumnos ListAlumnosfromSeccion(@WebParam(name = "IdSeccion")int IdSeccion){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.ListAlumnosFromSeccion(IdSeccion);
+            return alumnos;
+        }
+        
+        
+        @WebMethod(operationName = "getMisSecciones")
+        public Docente getMisSecciones(@WebParam(name = "IdDocente")int  IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMisSecciones(IdDocente);
+            return docente;
+        }
+        
+        
+        @WebMethod(operationName = "getSeccionesSinNotas")
+        public Docente getSeccionesSinNotas(@WebParam(name = "IdDocente")int  IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMisSeccionesSinNotas(IdDocente);
+            return docente;
+        }
+        
+        @WebMethod(operationName = "getSeccionesConNotas")
+        public Docente getSeccionesConNotas(@WebParam(name = "IdDocente")int  IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMisSeccionesConNotas(IdDocente);
+            return docente;
+        }
+        @WebMethod(operationName = "getSeccionesConNotasRevision")
+        public Docente getSeccionesConNotasRevision(@WebParam(name = "IdDocente")int  IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMisSeccionesConNotasRevision(IdDocente);
+            return docente;
+        }
+        @WebMethod(operationName = "getSeccionesConNotasRechazado")
+        public Docente getSeccionesConNotasRechazado(@WebParam(name = "IdDocente")int  IdDocente){
+              CDocentes cDocentes = new CDocentes();
+              Docente docente = cDocentes.getMisSeccionesConNotasRechazado(IdDocente);
+            return docente;
+        }
+        
+        //evaluaciones
+        
+        @WebMethod(operationName = "setEvaluacion")
+        public Evaluaciones setEvaluacion(@WebParam(name = "Num_Eval")int Num_Eval,@WebParam(name = "Inicio")String Inicio,@WebParam(name = "Fin")String Fin ){
+            CEvaluaciones cEvaluaciones = new CEvaluaciones();
+            Evaluaciones evaluaciones = cEvaluaciones.SetEvaluacion(Num_Eval, Inicio, Fin);
+            return evaluaciones;                    
+        }
+        
+         @WebMethod(operationName = "validarEvaluacion")
+        public Evaluaciones validarEvaluacion(@WebParam(name = "Num_Eval")int Num_Eval,@WebParam(name = "Inicio")String Inicio,@WebParam(name = "Fin")String Fin ){
+            CEvaluaciones cEvaluaciones = new CEvaluaciones();
+            Evaluaciones evaluaciones = cEvaluaciones.validarEvaluacion(Num_Eval, Inicio, Fin);
+            return evaluaciones;                    
+        }
+        @WebMethod(operationName = "DeleteEvaluacion")
+        public Evaluaciones DeleteEvaluacion(@WebParam(name = "IdEval")int IdEval){
+            CEvaluaciones cEvaluaciones = new CEvaluaciones();
+            Evaluaciones evaluaciones = cEvaluaciones.DeleteEvaluacion(IdEval);
+            return evaluaciones;                    
+        }
+        
+        @WebMethod(operationName = "ListEvaluaciones")
+        public Evaluaciones ListEvaluaciones(){
+            CEvaluaciones cEvaluaciones = new CEvaluaciones();
+            Evaluaciones evaluaciones = cEvaluaciones.ListEvaluaciones();
+            return evaluaciones;                    
+        }
+        
+        @WebMethod(operationName = "EvaluaciondeHoy")
+        public Evaluaciones EvaluaciondeHoy(){
+            CEvaluaciones cEvaluaciones = new CEvaluaciones();
+            Evaluaciones evaluaciones = cEvaluaciones.getTodayEvaluation();
+            return evaluaciones;                    
+        }
+        
  }
 
     

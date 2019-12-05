@@ -100,5 +100,33 @@ public class CSecciones {
         }
         
         return secciones;
+    } 
+    
+    
+    public Secciones getSeccionesByDocente(int id_grado, int idDocente){
+        Secciones secciones = new Secciones();
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_SELECT_SECCIONES_FROM_DOCENTES(?,?)}");
+            sql.setInt(1, idDocente);
+            sql.setInt(2, id_grado);
+            ResultSet res = sql.executeQuery();
+            
+            while(res.next()){
+                ID_SECCION.add(res.getInt("ID_SECCION"));                
+                SECCION.add(res.getString("SECCION"));
+                
+            }
+            secciones.setID_SECCION(ID_SECCION);            
+            secciones.setSECCION(SECCION);
+            
+            
+        } catch (SQLException e) {
+            String er = e.getMessage();
+            secciones.setERROR_MESSAGE(e.getMessage());
+        }
+        
+        return secciones;
     }       
+    
+    
 }

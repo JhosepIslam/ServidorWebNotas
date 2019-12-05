@@ -181,7 +181,7 @@ public class CMaterias {
         return materias;
     }
     
-      
+      //doncentes
       public Materias GetMateriasWithoutDocenteBySeccion(int idSeccion){
           Materias materias = new Materias();
         try {          
@@ -237,4 +237,7 @@ public class CMaterias {
           
           return materias;
       }
+      
+      
+      
 }

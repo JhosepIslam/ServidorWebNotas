@@ -138,6 +138,28 @@ public class CGrados {
         return grados;
     }
     
-    
+    public Grados GetGradosByDocente(int IdDocente){
+        Grados grados = new Grados();
+        
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_SELECT_GRADOS_FROM_DOCENTES(?)}");
+            sql.setInt(1, IdDocente);
+            ResultSet res = sql.executeQuery();
+            while (res.next()) {                
+                
+                ID.add(res.getString("ID_GRADO"));
+                GRADO.add(res.getString("GRADO"));                              
+                
+            }            
+            grados.setGRADO(GRADO);
+            grados.setID(ID);
+         
+         
+        } catch (SQLException e) {
+            grados.setCONSULTA_RESULT(false);
+        }
+        
+        return grados;
+    }
     
 }

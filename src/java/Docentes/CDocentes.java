@@ -123,4 +123,160 @@ public class CDocentes {
         return docente;
     }
     
+     public Docente getIdDocente(String Usuario){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_GET_DOCENTE_ID(?)}");
+            sql.setString(1, Usuario);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){               
+                
+                ID_DOCENTE.add(res.getString("ID_DOCENTE"));               
+                
+            }            
+            docente.setID_DOCENTE(ID_DOCENTE);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+     
+     
+     public Docente getMisSecciones(int id_docente){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_MIS_SECCIONES(?)}");
+            sql.setInt(1, id_docente);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                GRADO.add(res.getString("GRADO"));
+                CODIGO_MATERIA.add(res.getString("CODIGO_MATERIA"));                
+                SECCION.add(res.getString("SECCION"));
+                NOMBRE_MATERIA.add(res.getString("NOMBRE_MATERIA"));
+            }            
+            docente.setGRADO(GRADO);
+            docente.setSECCION(SECCION);            
+            docente.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+            docente.setCODIGO_MATERIA(CODIGO_MATERIA);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+     
+     
+     public Docente getMisSeccionesSinNotas(int id_docente){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_LISTAR_SECCIONES_SIN_NOTAS(?)}");
+            sql.setInt(1, id_docente);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                GRADO.add(res.getString("GRADO"));
+                CODIGO_MATERIA.add(res.getString("CODIGO_MATERIA"));   
+                ID_MATERIA_DOCENTE.add(res.getString("ID_MATERIA_DOCENTE"));
+                SECCION.add(res.getString("SECCION"));
+                NOMBRE_MATERIA.add(res.getString("NOMBRE_MATERIA"));
+            }            
+            docente.setGRADO(GRADO);
+            docente.setID_MATERIA_DOCENTE(ID_MATERIA_DOCENTE);
+            docente.setSECCION(SECCION);            
+            docente.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+            docente.setCODIGO_MATERIA(CODIGO_MATERIA);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+    
+     public Docente getMisSeccionesConNotas(int id_docente){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_LISTAR_SECCIONES_CON_NOTAS(?)}");
+            sql.setInt(1, id_docente);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                GRADO.add(res.getString("GRADO"));
+                CODIGO_MATERIA.add(res.getString("CODIGO_MATERIA"));   
+                ID_MATERIA_DOCENTE.add(res.getString("ID_MATERIA_DOCENTE"));
+                SECCION.add(res.getString("SECCION"));
+                NOMBRE_MATERIA.add(res.getString("NOMBRE_MATERIA"));
+            }            
+            docente.setGRADO(GRADO);
+            docente.setID_MATERIA_DOCENTE(ID_MATERIA_DOCENTE);
+            docente.setSECCION(SECCION);            
+            docente.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+            docente.setCODIGO_MATERIA(CODIGO_MATERIA);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+     
+      public Docente getMisSeccionesConNotasRevision(int id_docente){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_LISTAR_SECCIONES_CON_NOTAS_REVISION(?)}");
+            sql.setInt(1, id_docente);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                GRADO.add(res.getString("GRADO"));
+                CODIGO_MATERIA.add(res.getString("CODIGO_MATERIA"));   
+                ID_MATERIA_DOCENTE.add(res.getString("ID_MATERIA_DOCENTE"));
+                SECCION.add(res.getString("SECCION"));
+                NOMBRE_MATERIA.add(res.getString("NOMBRE_MATERIA"));
+            }            
+            docente.setGRADO(GRADO);
+            docente.setID_MATERIA_DOCENTE(ID_MATERIA_DOCENTE);
+            docente.setSECCION(SECCION);            
+            docente.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+            docente.setCODIGO_MATERIA(CODIGO_MATERIA);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+      
+      public Docente getMisSeccionesConNotasRechazado(int id_docente){
+        
+        Docente docente = new Docente();
+        try {
+            
+            CallableStatement sql = con.prepareCall("{call SP_LISTAR_SECCIONES_CON_NOTAS_RECHAZADO(?)}");
+            sql.setInt(1, id_docente);
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                GRADO.add(res.getString("GRADO"));
+                CODIGO_MATERIA.add(res.getString("CODIGO_MATERIA"));   
+                ID_MATERIA_DOCENTE.add(res.getString("ID_MATERIA_DOCENTE"));
+                SECCION.add(res.getString("SECCION"));
+                NOMBRE_MATERIA.add(res.getString("NOMBRE_MATERIA"));
+            }            
+            docente.setGRADO(GRADO);
+            docente.setID_MATERIA_DOCENTE(ID_MATERIA_DOCENTE);
+            docente.setSECCION(SECCION);            
+            docente.setNOMBRE_MATERIA(NOMBRE_MATERIA);
+            docente.setCODIGO_MATERIA(CODIGO_MATERIA);
+            
+            
+        } catch (SQLException e) {
+        }              
+        return docente;
+    }
+    
 }
