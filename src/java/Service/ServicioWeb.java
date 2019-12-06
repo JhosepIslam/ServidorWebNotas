@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Service;
 
 import Alumnos.Alumno;
@@ -22,10 +18,10 @@ import Usuario.Usuario;
 import Alumnos.Alumnos;
 import Evaluaciones.CEvaluaciones;
 import Evaluaciones.Evaluaciones;
+import Notas.CNotas;
+import Notas.Notas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -365,6 +361,23 @@ public class ServicioWeb {
             Evaluaciones evaluaciones = cEvaluaciones.getTodayEvaluation();
             return evaluaciones;                    
         }
+        
+        //notas
+        @WebMethod(operationName = "SubirNotasRevision")
+        public Notas SubirNotasRevision(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente,@WebParam(name = "FilePath")String FilePath){
+            CNotas cNotas = new CNotas();
+            Notas notas = cNotas.subirNotasARevision(FilePath, IdMateriaDocente);
+            return notas;
+                    
+        }
+        @WebMethod(operationName = "CancelarNotasRevision")
+        public Notas CancelarNotasRevision(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente){
+            CNotas cNotas = new CNotas();
+            Notas notas = cNotas.cancelarRevisionNotas(IdMateriaDocente);
+            return notas;
+                    
+        }
+                
         
  }
 
