@@ -48,4 +48,35 @@ public class CAlumnosP {
         }
         return alumnos;
     }
+    
+    
+    
+    public Alumnos ListAlumnosNotas(int IdMateriaDocente){
+        Alumnos alumnos = new Alumnos();
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_LISTAR_ALUMNOS_SUBIR_NOTAS(?)}");
+            sql.setInt(1,IdMateriaDocente);
+            
+            ResultSet res = sql.executeQuery();
+            while(res.next()){
+                APELLIDO.add(res.getString("APELLIDO"));
+                NUMERO_ID.add(res.getString("NUMERO_ID"));
+                NOMBRE.add(res.getString("NOMBRE"));
+                GRADO.add(res.getString("GRADO"));
+                SECCION.add(res.getString("SECCION"));
+                ID_ALUMNO.add(res.getString("ID_ALUMNO"));
+                
+            }
+            alumnos.setAPELLIDO(APELLIDO);
+            alumnos.setGRADO(GRADO);
+            alumnos.setNOMBRE(NOMBRE);
+            alumnos.setNUMERO_ID(NUMERO_ID);
+            alumnos.setID_ALUMNO(ID_ALUMNO);
+            alumnos.setSECCION(SECCION);
+            
+        } catch (SQLException e) {
+            alumnos.setRESULT(false);
+        }
+        return alumnos;
+    }
 }

@@ -1,6 +1,8 @@
 
 package Service;
 
+import Academico.Academicos;
+import Academico.CAcademicos;
 import Alumnos.Alumno;
 import Alumnos.CAlumnos;
 import Alumnos.CAlumnosP;
@@ -291,6 +293,13 @@ public class ServicioWeb {
             return alumnos;
         }
         
+        @WebMethod(operationName = "ListAlumnosNotas")
+        public Alumnos ListAlumnosNotas(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.ListAlumnosNotas(IdMateriaDocente);
+            return alumnos;
+        }
+        
         
         @WebMethod(operationName = "getMisSecciones")
         public Docente getMisSecciones(@WebParam(name = "IdDocente")int  IdDocente){
@@ -377,6 +386,74 @@ public class ServicioWeb {
             return notas;
                     
         }
+        
+         @WebMethod(operationName = "SubirNotasRevisionManual")
+        public Notas SubirNotasRevisionManual(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente,@WebParam(name = "IdAlumnos")int IdAlumnos,@WebParam(name = "Notas")float Nota){
+            CNotas cNotas = new CNotas();
+            Notas notas = cNotas.subirNotasARevisionManual(IdAlumnos, Nota, IdMateriaDocente);
+            return notas;
+                    
+        }
+        
+        
+        //academico 
+        @WebMethod(operationName = "AcademicoGetMateriasSinNotas")
+        public Academicos AcademicoGetMateriasSinNotas() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesSinNotas();
+            return academicos;       
+        }
+        @WebMethod(operationName = "AcademicoGetMateriasConNotas")
+        public Academicos AcademicoGetMateriasConNotas() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasAceptadas();
+            return academicos;       
+        }
+        @WebMethod(operationName = "AcademicoGetMateriasConNotasRevision")
+        public Academicos AcademicoGetMateriasConNotasRevision() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasRevision();
+            return academicos;       
+        }
+         @WebMethod(operationName = "AcademicoGetMateriasConNotasRechazada")
+        public Academicos AcademicoGetMateriasConNotasRechazada() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasRechazadas();
+            return academicos;       
+        }
+        
+        
+         @WebMethod(operationName = "AcademicoGetMateriasConNotasEXCEL")
+        public Academicos AcademicoGetMateriasConNotasEXCEL() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasAceptadasEXCEL();
+            return academicos;       
+        }
+        @WebMethod(operationName = "AcademicoGetMateriasConNotasRevisionEXCEL")
+        public Academicos AcademicoGetMateriasConNotasRevisionEXCEL() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasRevisionEXCEL();
+            return academicos;       
+        }
+         @WebMethod(operationName = "AcademicoGetMateriasConNotasRechazadaEXCEL")
+        public Academicos AcademicoGetMateriasConNotasRechazadaEXCEL() {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.getSeccionesConNotasRechazadasEXCEL();
+            return academicos;       
+        }
+          @WebMethod(operationName = "AcademicoAprobarNotasExcel")
+        public Academicos AcademicoAprobarNotasExcel(@WebParam(name = "IdMateriaDocente") int IdMateriaDocente) {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.AprobarExcel(IdMateriaDocente);
+            return academicos;       
+        }
+          @WebMethod(operationName = "AcademicoRechazarNotasExcel")
+        public Academicos AcademicoRechazarNotasExcel(@WebParam(name = "IdMateriaDocente") int IdMateriaDocente) {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.RechazarExcel(IdMateriaDocente);
+            return academicos;       
+        }
+        
                 
         
  }
