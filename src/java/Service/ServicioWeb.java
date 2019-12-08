@@ -22,6 +22,7 @@ import Evaluaciones.CEvaluaciones;
 import Evaluaciones.Evaluaciones;
 import Notas.CNotas;
 import Notas.Notas;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.jws.WebService;
@@ -452,6 +453,84 @@ public class ServicioWeb {
             CAcademicos cAcademicos = new CAcademicos();
             Academicos academicos = cAcademicos.RechazarExcel(IdMateriaDocente);
             return academicos;       
+        }
+        
+          @WebMethod(operationName = "AcademicoRechazarNotas")
+        public Academicos AcademicoRechazarNotas(@WebParam(name = "IdMateriaDocente") int IdMateriaDocente) {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.RechazarNotas(IdMateriaDocente);
+            return academicos;       
+        }
+        
+          @WebMethod(operationName = "AcademicoAprobarNotas")
+        public Academicos AcademicoAprobarNotas(@WebParam(name = "IdMateriaDocente") int IdMateriaDocente) {
+            CAcademicos cAcademicos = new CAcademicos();
+            Academicos academicos = cAcademicos.AprobarNotas(IdMateriaDocente);
+            return academicos;       
+        }
+        
+        //notas revision
+        @WebMethod(operationName = "ListAlumnosNotasRevision")
+        public Alumnos ListAlumnosNotasRevision(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.ListAlumnosNotasRevisionAcademica(IdMateriaDocente);
+            return alumnos;
+        }
+        
+        @WebMethod(operationName = "getFilePathExcel")
+        public String getFilePathExcel(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente){
+            CAcademicos cAcademicos = new CAcademicos();
+            String path =cAcademicos.getPathArchivoExcel(IdMateriaDocente);
+            return path;            
+        }
+        
+        
+        //subir notas Excel
+        
+        
+         @WebMethod(operationName = "subirNotasExcelAceptadas")
+        public Notas subirNotasExcelAceptadas(@WebParam(name = "IdMateriaDocente")int IdMateriaDocente,@WebParam(name = "IdAlumno")int IdAlumno,@WebParam(name = "Nota")float Nota){
+            CNotas cNotas = new CNotas();
+            Notas notas = cNotas.subirNotasExcelAprobadas(IdAlumno, Nota, IdMateriaDocente);
+            return notas;            
+        }
+        
+        
+        
+        // alumnos notas
+        @WebMethod(operationName = "AlumnosgetMiID")
+        public Alumnos AlumnosgetMiID(@WebParam(name = "Usuario")String Usuario){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.getMiID(Usuario);
+            return alumnos;
+        }
+        
+        
+        @WebMethod(operationName = "AlumnosgetMiSeccion")
+        public int AlumnosgetMiSeccion(@WebParam(name = "IdAlumno")int IdAlumno){
+            CAlumnosP cAlumnosP = new CAlumnosP();            
+            return  cAlumnosP.getMiSeccion(IdAlumno);
+        }
+        
+        @WebMethod(operationName = "AlumnosgetMisEvaluaciones")
+        public Alumnos AlumnosgetMisEvaluaciones(){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.getMiEvaluaciones();
+            return alumnos;
+        }
+        
+         @WebMethod(operationName = "AlumnosGetMisMaterias")
+        public Alumnos AlumnosGetMisMaterias(@WebParam(name = "IdSeccion")int IdSeccion){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.getMisMaterias(IdSeccion);
+            return alumnos;
+        }
+        
+        @WebMethod(operationName = "AlumnosgetMisNotas")
+        public Alumnos AlumnosgetMisNotas(@WebParam(name = "IdAlumno")int IdAlumno,@WebParam(name = "IdMateria")int IdMateria,@WebParam(name = "IdEvaluacion")int IdEvaluacion){
+            CAlumnosP cAlumnosP = new CAlumnosP();
+            Alumnos alumnos = cAlumnosP.getMisNotas(IdAlumno, IdMateria, IdEvaluacion);
+            return alumnos;
         }
         
                 

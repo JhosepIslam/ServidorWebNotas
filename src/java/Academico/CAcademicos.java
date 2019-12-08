@@ -254,5 +254,49 @@ public class CAcademicos {
         
         return academicos;
     }
+     
+     
+     public Academicos RechazarNotas(int IdMateriaDocente){
+        Academicos academicos = new Academicos();
+        
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_RECHAZAR_NOTAS_ACADEMICA(?)}");
+            sql.setInt(1, IdMateriaDocente);
+            sql.execute();
+        } catch (SQLException e) {
+        }
+        
+        return academicos;
+    }
+     public Academicos AprobarNotas(int IdMateriaDocente){
+        Academicos academicos = new Academicos();
+        
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_APROBAR_NOTAS_ACADEMICA(?)}");
+            sql.setInt(1, IdMateriaDocente);
+            sql.execute();
+        } catch (SQLException e) {
+        }
+        
+        return academicos;
+    }
+     
+     
+     
+      public String getPathArchivoExcel(int IdMateriaDocente){
+         String Repuesta=null;
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_GET_URL_ARCHIVO_NOTAS(?)}");
+            sql.setInt(1, IdMateriaDocente);
+            ResultSet res = sql.executeQuery();
+            if (res.next()) {
+                Repuesta = res.getString("FILE_PATH");
+            }
+     
+        } catch (SQLException e) {
+        }
+        
+        return Repuesta;
+    }
         
 }

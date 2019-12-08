@@ -49,4 +49,20 @@ public class CNotas {
         return notas;
     }
     
+    public Notas subirNotasExcelAprobadas(int IdAlumno,float Nota,int IdMateriaDocente){
+        Notas notas = new Notas();        
+        try {
+            CallableStatement sql = con.prepareCall("{call SP_INSERTAR_NOTA_EXCEL_APROBADA_ACADEMICA(?,?,?)}");
+            sql.setInt(1, IdMateriaDocente);
+            sql.setInt(2, IdAlumno);
+            sql.setFloat(3, Nota );
+            sql.execute();
+            notas.setRESULT(true);
+        } catch (SQLException e) {
+            notas.setRESULT(true);
+        }
+        
+        return notas;
+    }
+    
 }
